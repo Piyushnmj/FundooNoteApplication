@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace FundooNoteApplication.Controllers
 {
     [ApiController]
-    [Authorize]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {

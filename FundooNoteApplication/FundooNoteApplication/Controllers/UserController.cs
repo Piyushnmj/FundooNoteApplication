@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace FundooNoteApplication.Controllers
 {
     [ApiController]
-    [Authorize]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
@@ -48,7 +47,7 @@ namespace FundooNoteApplication.Controllers
             try
             {
                 var result = objIUserBL.LoginUser(userLogin);
-                if (result == "Login Successfull")
+                if (result != null)
                 {
                     return this.Ok(new { success = true, message = "Login Successfull", data = result });
                 }
