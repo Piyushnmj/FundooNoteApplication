@@ -69,5 +69,28 @@ namespace FundooNoteApplication.Controllers
                 throw;
             }
         }
+
+        [HttpPost]
+
+        [Route("ForgotPassword")]
+        public IActionResult ForgotPassword(string email)
+        {
+            try
+            {
+                var result = objIUserBL.ForgotPassword(email);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, message = "Mail Sent Successfully" });
+                }
+                else
+                {
+                    return this.NotFound(new { success = false, message = "Sending Mail Failed" });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
