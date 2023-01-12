@@ -17,12 +17,12 @@ namespace RepositoryLayer.Service
     {
         FundooContext fundoo;
         private readonly string secret;
-        private readonly string expDate;
+        //private readonly string expDate;
         public UserRL(FundooContext fundoo, IConfiguration config)
         {
             this.fundoo = fundoo;
             secret = config.GetSection("JwtConfig").GetSection("secret").Value;
-            expDate = config.GetSection("JwtConfig").GetSection("expirationInMinutes").Value;
+            //expDate = config.GetSection("JwtConfig").GetSection("expirationInMinutes").Value;
         }
 
         public UEntity RegisterUser(UserRegistration userRegistration)
@@ -84,7 +84,7 @@ namespace RepositoryLayer.Service
                     new Claim(ClaimTypes.Email, email),
                     new Claim("userId",userId.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddHours(2),
+                Expires = DateTime.UtcNow.AddMinutes(120),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
