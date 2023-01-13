@@ -11,6 +11,7 @@ using System;
 using System.Text;
 using RepositoryLayer.Context;
 using BusinessLayer.Service;
+using System.Linq;
 
 namespace FundooNoteApplication.Controllers
 {
@@ -85,6 +86,31 @@ namespace FundooNoteApplication.Controllers
                 else
                 {
                     return this.NotFound(new { success = false, message = "Sending Mail Failed" });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [Authorize]
+        [HttpPut]
+
+        [Route("ResetPassword")]
+        public IActionResult PasswordReset(ResetPasswordModel resetPasswordModel)
+        {
+            try
+            {
+                var email = User.FindFirst(ClaimTypes.Email).Value.ToString();
+                var result = objIUserBL.ResetPassword(email, resetPasswordModel);
+                if (result == true)
+                {
+                    return this.Ok(new { success = true, message = "Password Reset Successfull" });
+                }
+                else
+                {
+                    return this.NotFound(new { success = false, message = "Password Reset Failed" });
                 }
             }
             catch (Exception)
