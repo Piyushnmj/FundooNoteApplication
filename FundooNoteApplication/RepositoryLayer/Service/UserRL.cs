@@ -17,12 +17,11 @@ namespace RepositoryLayer.Service
     {
         FundooContext fundoo;
         private readonly string secret;
-        //private readonly string expDate;
+
         public UserRL(FundooContext fundoo, IConfiguration config)
         {
             this.fundoo = fundoo;
             secret = config.GetSection("JwtConfig").GetSection("secret").Value;
-            //expDate = config.GetSection("JwtConfig").GetSection("expirationInMinutes").Value;
         }
 
         public UEntity RegisterUser(UserRegistration userRegistration)
@@ -56,7 +55,6 @@ namespace RepositoryLayer.Service
             try
             {
                 var result = fundoo.UserTable.Where(x => x.Email == userLogin.Email && x.Password == userLogin.Password).FirstOrDefault();
-                //if(result.Email == userLogin.Email && result.Password == userLogin.Password)
                 if(result != null)
                 {
                     var token = GenerateSecurityToken(result.Email, result.UserId);
@@ -138,5 +136,7 @@ namespace RepositoryLayer.Service
                 throw;
             }
         }
+
+        //long UserID = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
     }
 }
