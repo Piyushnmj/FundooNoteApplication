@@ -136,7 +136,5 @@ namespace RepositoryLayer.Service
                 throw;
             }
         }
-
-        //long UserID = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserId").Value);
     }
 }

@@ -53,5 +53,18 @@ namespace RepositoryLayer.Service
                 throw ex;
             }
         }
+
+        public IQueryable<NEntity> RetrieveNote(long userId)
+        {
+            try
+            {
+                var result = fundoo.NoteTable.Where(x => x.UserId == userId);
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

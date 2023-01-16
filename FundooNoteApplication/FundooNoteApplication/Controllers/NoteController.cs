@@ -41,5 +41,28 @@ namespace FundooNoteApplication.Controllers
                 throw;
             }
         }
+
+        [HttpGet]
+        [Route("RetrieveNote")]
+        public IActionResult Retrieve()
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
+                var result = objINoteBL.RetrieveNote(userId);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, message = "Notes Retrieved", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Unable to Retrieve Notes" });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
