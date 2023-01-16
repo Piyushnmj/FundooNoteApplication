@@ -64,5 +64,28 @@ namespace FundooNoteApplication.Controllers
                 throw;
             }
         }
+
+        [HttpDelete]
+        [Route("DeleteNote")]
+        public IActionResult Delete(long noteId)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
+                var result = objINoteBL.DeleteNote(noteId);
+                if (result == true)
+                {
+                    return this.Ok(new { success = true, message = "Note Deleted" });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Unable to Delete Note" });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace RepositoryLayer.Interface
     {
         public NEntity CreateNote(CreateNoteModel createNote, long userId);
         public IQueryable<NEntity> RetrieveNote(long userId);
+        public bool DeleteNote(long noteId);
     }
 }
