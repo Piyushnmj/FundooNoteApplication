@@ -89,14 +89,14 @@ namespace RepositoryLayer.Service
                 {
                     result.Title = createNoteModel.Title;
                     result.Description = createNoteModel.Description;
-                    result.Reminder= createNoteModel.Reminder;
-                    result.BackgroundColour= createNoteModel.BackgroundColour;
-                    result.ImagePath= createNoteModel.ImagePath;
-                    result.IsArchived= createNoteModel.IsArchived;
-                    result.IsPinned= createNoteModel.IsPinned;
-                    result.IsDeleted= createNoteModel.IsDeleted;
-                    result.TimeNoteCreated= createNoteModel.TimeNoteCreated;
-                    result.TimeNoteUpdated= createNoteModel.TimeNoteUpdated;
+                    result.Reminder = createNoteModel.Reminder;
+                    result.BackgroundColour = createNoteModel.BackgroundColour;
+                    result.ImagePath = createNoteModel.ImagePath;
+                    result.IsArchived = createNoteModel.IsArchived;
+                    result.IsPinned = createNoteModel.IsPinned;
+                    result.IsDeleted = createNoteModel.IsDeleted;
+                    result.TimeNoteCreated = createNoteModel.TimeNoteCreated;
+                    result.TimeNoteUpdated = createNoteModel.TimeNoteUpdated;
                     fundoo.SaveChanges();
                     return result;
                 }
@@ -138,23 +138,16 @@ namespace RepositoryLayer.Service
             try
             {
                 var result = fundoo.NoteTable.Where(x => x.UserId == userId && x.NoteId == noteIdModel.noteId).FirstOrDefault();
-                if (result != null)
+                if (!result.IsArchived == true)
                 {
-                    if (!result.IsArchived == true)
-                    {
-                        result.IsArchived = true;
-                        fundoo.SaveChanges();
-                        return true;
-                    }
-                    else
-                    {
-                        result.IsArchived = false;
-                        fundoo.SaveChanges();
-                        return false;
-                    }
+                    result.IsArchived = true;
+                    fundoo.SaveChanges();
+                    return true;
                 }
                 else
                 {
+                    result.IsArchived = false;
+                    fundoo.SaveChanges();
                     return false;
                 }
             }
@@ -178,6 +171,30 @@ namespace RepositoryLayer.Service
                 else
                 {
                     result.IsPinned = false;
+                    fundoo.SaveChanges();
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool TrashNote(long userId, NoteIdModel noteIdModel)
+        {
+            try
+            {
+                var result = fundoo.NoteTable.Where(x => x.UserId == userId && x.NoteId == noteIdModel.noteId).FirstOrDefault();
+                if (!result.IsTrashed == true)
+                {
+                    result.IsTrashed = true;
+                    fundoo.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    result.IsTrashed = false;
                     fundoo.SaveChanges();
                     return false;
                 }

@@ -179,13 +179,51 @@ namespace FundooNoteApplication.Controllers
             {
                 long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
                 var result = objINoteBL.PinNote(userId, noteIdModel);
-                if (result == true)
+                if(result != null)
                 {
-                    return this.Ok(new { success = true, message = "Note Pinned", data = result });
+                    if (result == true)
+                    {
+                        return this.Ok(new { success = true, message = "Note Pinned", data = result });
+                    }
+                    else
+                    {
+                        return this.Ok(new { success = true, message = "Note Unpinned" });
+                    }
                 }
                 else
                 {
-                    return this.BadRequest(new { success = false, message = "Unpinned" });
+                    return this.BadRequest(new { success = false, message = "Something went wrong" });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("Trash-Restore")]
+        public IActionResult Trash(NoteIdModel noteIdModel)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
+                var result = objINoteBL.TrashNote(userId, noteIdModel);
+                if (result != null)
+                {
+                    if (result == true)
+                    {
+                        return this.Ok(new { success = true, message = "Note Trashed", data = result });
+                    }
+                    else
+                    {
+                        return this.Ok(new { success = true, message = "Note Restored" });
+                    }
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Something went wrong" });
                 }
             }
             catch (Exception)
