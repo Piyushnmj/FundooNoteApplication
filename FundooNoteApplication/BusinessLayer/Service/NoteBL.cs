@@ -88,5 +88,17 @@ namespace BusinessLayer.Service
                 throw;
             }
         }
+
+        public bool PinNote(long userId, NoteIdModel noteIdModel)
+        {
+            try
+            {
+                return noteINoteRL.PinNote(userId, noteIdModel);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

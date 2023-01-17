@@ -149,11 +149,35 @@ namespace FundooNoteApplication.Controllers
                 var result = objINoteBL.ArchiveNote(userId, noteIdModel);
                 if (result == true)
                 {
-                    return this.Ok(new { success = true, message = "Note Archived", data = result });
+                    return this.Ok(new { success = true, message = "Note Archived" });
                 }
                 else
                 {
                     return this.BadRequest(new { success = false, message = "Unarchived" });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("Pin-UnPin")]
+        public IActionResult Pin(NoteIdModel noteIdModel)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
+                var result = objINoteBL.PinNote(userId, noteIdModel);
+                if (result == true)
+                {
+                    return this.Ok(new { success = true, message = "Note Pinned", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Unpinned" });
                 }
             }
             catch (Exception)
