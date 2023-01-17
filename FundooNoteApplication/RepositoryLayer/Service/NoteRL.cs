@@ -132,5 +132,29 @@ namespace RepositoryLayer.Service
                 throw;
             }
         }
+
+        public bool ArchiveNote(long userId, NoteIdModel noteIdModel)
+        {
+            try
+            {
+                var result = fundoo.NoteTable.Where(x => x.UserId == userId && x.NoteId == noteIdModel.noteId).FirstOrDefault();
+                if (!result.IsArchived == true)
+                {
+                    result.IsArchived = true;
+                    fundoo.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    result.IsArchived = false;
+                    fundoo.SaveChanges();
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

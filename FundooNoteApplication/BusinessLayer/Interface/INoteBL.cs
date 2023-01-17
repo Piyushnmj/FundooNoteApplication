@@ -13,6 +13,7 @@ namespace BusinessLayer.Interface
         public IQueryable<NEntity> RetrieveAllNotes(long userId);
         public IQueryable<NEntity> RetrieveNote(long userId, NoteIdModel noteIdModel);
         public NEntity UpdateNote(long userId, NoteIdModel noteIdModel, CreateNoteModel createNoteModel);
+        public bool ArchiveNote(long userId, NoteIdModel noteIdModel);
         public bool DeleteNote(long userId, NoteIdModel noteIdModel);
     }
 }

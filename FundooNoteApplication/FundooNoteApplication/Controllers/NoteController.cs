@@ -42,6 +42,7 @@ namespace FundooNoteApplication.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet]
         [Route("RetrieveAllNotes")]
         public IActionResult RetrieveAllNotes()
@@ -65,6 +66,7 @@ namespace FundooNoteApplication.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet]
         [Route("RetrieveNote")]
         public IActionResult RetrieveNote([FromQuery]NoteIdModel noteIdModel)
@@ -88,6 +90,7 @@ namespace FundooNoteApplication.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut]
         [Route("UpdateNote")]
         public IActionResult UpdateNote([FromQuery]NoteIdModel noteIdModel, CreateNoteModel createNoteModel)
@@ -111,6 +114,7 @@ namespace FundooNoteApplication.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("DeleteNote")]
         public IActionResult Delete(NoteIdModel noteIdModel)
@@ -126,6 +130,30 @@ namespace FundooNoteApplication.Controllers
                 else
                 {
                     return this.BadRequest(new { success = false, message = "Unable to Delete Note" });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("Archive-Unarchive")]
+        public IActionResult Archive(NoteIdModel noteIdModel)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
+                var result = objINoteBL.ArchiveNote(userId, noteIdModel);
+                if (result == true)
+                {
+                    return this.Ok(new { success = true, message = "Note Archived", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Unarchived" });
                 }
             }
             catch (Exception)
