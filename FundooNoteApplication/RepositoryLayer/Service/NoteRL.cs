@@ -54,7 +54,7 @@ namespace RepositoryLayer.Service
             }
         }
 
-        public IQueryable<NEntity> RetrieveNote(long userId)
+        public IQueryable<NEntity> RetrieveAllNotes(long userId)
         {
             try
             {
@@ -67,11 +67,55 @@ namespace RepositoryLayer.Service
             }
         }
 
-        public bool DeleteNote(long noteId)
+        public IQueryable<NEntity> RetrieveNote(long userId, NoteIdModel noteIdModel)
         {
             try
             {
-                var result = fundoo.NoteTable.Where(x => x.NoteId == noteId).FirstOrDefault();
+                var result = fundoo.NoteTable.Where(x => x.UserId == userId && x.NoteId == noteIdModel.noteId);
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public NEntity UpdateNote(long userId, NoteIdModel noteIdModel, CreateNoteModel createNoteModel)
+        {
+            try
+            {
+                var result = fundoo.NoteTable.Where(x => x.UserId == userId && x.NoteId == noteIdModel.noteId).FirstOrDefault();
+                if (result != null)
+                {
+                    result.Title = createNoteModel.Title;
+                    result.Description = createNoteModel.Description;
+                    result.Reminder= createNoteModel.Reminder;
+                    result.BackgroundColour= createNoteModel.BackgroundColour;
+                    result.ImagePath= createNoteModel.ImagePath;
+                    result.IsArchived= createNoteModel.IsArchived;
+                    result.IsPinned= createNoteModel.IsPinned;
+                    result.IsDeleted= createNoteModel.IsDeleted;
+                    result.TimeNoteCreated= createNoteModel.TimeNoteCreated;
+                    result.TimeNoteUpdated= createNoteModel.TimeNoteUpdated;
+                    fundoo.SaveChanges();
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool DeleteNote(long userId, NoteIdModel noteIdModel)
+        {
+            try
+            {
+                var result = fundoo.NoteTable.Where(x => x.UserId == userId && x.NoteId == noteIdModel.noteId).FirstOrDefault();
                 if (result != null)
                 {
                     fundoo.NoteTable.Remove(result);

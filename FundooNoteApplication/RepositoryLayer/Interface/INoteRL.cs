@@ -10,7 +10,9 @@ namespace RepositoryLayer.Interface
     public interface INoteRL
     {
         public NEntity CreateNote(CreateNoteModel createNote, long userId);
-        public IQueryable<NEntity> RetrieveNote(long userId);
-        public bool DeleteNote(long noteId);
+        public IQueryable<NEntity> RetrieveAllNotes(long userId);
+        public IQueryable<NEntity> RetrieveNote(long userId, NoteIdModel noteIdModel);
+        public NEntity UpdateNote(long userId, NoteIdModel noteIdModel, CreateNoteModel createNoteModel);
+        public bool DeleteNote(long userId, NoteIdModel noteIdModel);
     }
 }

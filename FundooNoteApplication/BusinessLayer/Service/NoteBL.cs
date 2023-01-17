@@ -29,11 +29,11 @@ namespace BusinessLayer.Service
             }
         }
 
-        public IQueryable<NEntity> RetrieveNote(long userId)
+        public IQueryable<NEntity> RetrieveAllNotes(long userId)
         {
             try
             {
-                return noteINoteRL.RetrieveNote(userId);
+                return noteINoteRL.RetrieveAllNotes(userId);
             }
             catch (Exception)
             {
@@ -41,11 +41,35 @@ namespace BusinessLayer.Service
             }
         }
 
-        public bool DeleteNote(long noteId)
+        public IQueryable<NEntity> RetrieveNote(long userId, NoteIdModel noteIdModel)
         {
             try
             {
-                return noteINoteRL.DeleteNote(noteId);
+                return noteINoteRL.RetrieveNote(userId, noteIdModel);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public NEntity UpdateNote(long userId, NoteIdModel noteIdModel, CreateNoteModel createNoteModel)
+        {
+            try
+            {
+                return noteINoteRL.UpdateNote(userId, noteIdModel, createNoteModel);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool DeleteNote(long userId, NoteIdModel noteIdModel)
+        {
+            try
+            {
+                return noteINoteRL.DeleteNote(userId, noteIdModel);
             }
             catch (Exception)
             {

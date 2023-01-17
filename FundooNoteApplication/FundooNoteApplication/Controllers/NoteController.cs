@@ -43,13 +43,13 @@ namespace FundooNoteApplication.Controllers
         }
 
         [HttpGet]
-        [Route("RetrieveNote")]
-        public IActionResult Retrieve()
+        [Route("RetrieveAllNotes")]
+        public IActionResult RetrieveAllNotes()
         {
             try
             {
                 long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
-                var result = objINoteBL.RetrieveNote(userId);
+                var result = objINoteBL.RetrieveAllNotes(userId);
                 if (result != null)
                 {
                     return this.Ok(new { success = true, message = "Notes Retrieved", data = result });
@@ -65,14 +65,60 @@ namespace FundooNoteApplication.Controllers
             }
         }
 
-        [HttpDelete]
-        [Route("DeleteNote")]
-        public IActionResult Delete(long noteId)
+        [HttpGet]
+        [Route("RetrieveNote")]
+        public IActionResult RetrieveNote([FromQuery]NoteIdModel noteIdModel)
         {
             try
             {
                 long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
-                var result = objINoteBL.DeleteNote(noteId);
+                var result = objINoteBL.RetrieveNote(userId, noteIdModel);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, message = "Note Retrieved", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Unable to Retrieve Note" });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPut]
+        [Route("UpdateNote")]
+        public IActionResult UpdateNote([FromQuery]NoteIdModel noteIdModel, CreateNoteModel createNoteModel)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
+                var result = objINoteBL.UpdateNote(userId, noteIdModel, createNoteModel);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, message = "Note Updated", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Unable to Update Note" });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpDelete]
+        [Route("DeleteNote")]
+        public IActionResult Delete(NoteIdModel noteIdModel)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
+                var result = objINoteBL.DeleteNote(userId, noteIdModel);
                 if (result == true)
                 {
                     return this.Ok(new { success = true, message = "Note Deleted" });
