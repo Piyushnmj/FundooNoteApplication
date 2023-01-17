@@ -138,16 +138,23 @@ namespace RepositoryLayer.Service
             try
             {
                 var result = fundoo.NoteTable.Where(x => x.UserId == userId && x.NoteId == noteIdModel.noteId).FirstOrDefault();
-                if (!result.IsArchived == true)
+                if (result != null)
                 {
-                    result.IsArchived = true;
-                    fundoo.SaveChanges();
-                    return true;
+                    if (!result.IsArchived == true)
+                    {
+                        result.IsArchived = true;
+                        fundoo.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        result.IsArchived = false;
+                        fundoo.SaveChanges();
+                        return false;
+                    }
                 }
                 else
                 {
-                    result.IsArchived = false;
-                    fundoo.SaveChanges();
                     return false;
                 }
             }

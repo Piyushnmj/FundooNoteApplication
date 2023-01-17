@@ -147,14 +147,22 @@ namespace FundooNoteApplication.Controllers
             {
                 long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
                 var result = objINoteBL.ArchiveNote(userId, noteIdModel);
-                if (result == true)
+                if(result != null)
                 {
-                    return this.Ok(new { success = true, message = "Note Archived", data = result });
+                    if (result == true)
+                    {
+                        return this.Ok(new { success = true, message = "Note Archived" });
+                    }
+                    else
+                    {
+                        return this.Ok(new { success = true, message = "Note Unarchived", data = result });
+                    }
                 }
                 else
                 {
-                    return this.BadRequest(new { success = false, message = "Unarchived" });
+                    return this.BadRequest(new { success = false, message = "Something went wrong" });
                 }
+                
             }
             catch (Exception)
             {
