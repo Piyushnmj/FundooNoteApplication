@@ -26,8 +26,8 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("Email")
-                        .HasColumnType("bigint");
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("NoteId")
                         .HasColumnType("bigint");
@@ -41,7 +41,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CollabTable");
+                    b.ToTable("CollaboratorTable");
                 });
 
             modelBuilder.Entity("RepositoryLayer.Entities.NEntity", b =>

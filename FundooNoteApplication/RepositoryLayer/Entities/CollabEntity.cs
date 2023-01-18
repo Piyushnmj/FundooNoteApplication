@@ -12,7 +12,7 @@ namespace RepositoryLayer.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long CollabId { get; set; }
-        public long Email { get; set; }
+        public string Email { get; set; }
         [ForeignKey("User")]
         public long UserId { get; set; }
         public virtual UEntity User { get; set; }

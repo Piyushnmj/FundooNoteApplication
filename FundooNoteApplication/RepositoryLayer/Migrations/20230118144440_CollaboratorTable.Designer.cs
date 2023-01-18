@@ -10,8 +10,8 @@ using RepositoryLayer.Context;
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(FundooContext))]
-    [Migration("20230118101148_CollabTableMigration")]
-    partial class CollabTableMigration
+    [Migration("20230118144440_CollaboratorTable")]
+    partial class CollaboratorTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,8 +28,8 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("Email")
-                        .HasColumnType("bigint");
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("NoteId")
                         .HasColumnType("bigint");
@@ -43,7 +43,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CollabTable");
+                    b.ToTable("CollaboratorTable");
                 });
 
             modelBuilder.Entity("RepositoryLayer.Entities.NEntity", b =>
