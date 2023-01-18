@@ -17,5 +17,6 @@ namespace BusinessLayer.Interface
         public bool PinNote(long userId, NoteIdModel noteIdModel);
         public bool DeleteNote(long userId, NoteIdModel noteIdModel);
         public bool TrashNote(long userId, NoteIdModel noteIdModel);
+        public NEntity BackgroundColour(long userId, NoteIdModel noteIdModel, BackgroundColourModel backgroundColour);
     }
 }

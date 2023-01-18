@@ -33,6 +33,7 @@ namespace RepositoryLayer.Service
                 objNEntity.IsArchived = createNote.IsArchived;
                 objNEntity.IsPinned = createNote.IsPinned;
                 objNEntity.IsDeleted = createNote.IsDeleted;
+                objNEntity.IsTrashed = createNote.IsTrashed;
                 objNEntity.TimeNoteCreated = createNote.TimeNoteCreated;
                 objNEntity.TimeNoteUpdated = createNote.TimeNoteUpdated;
 
@@ -95,6 +96,7 @@ namespace RepositoryLayer.Service
                     result.IsArchived = createNoteModel.IsArchived;
                     result.IsPinned = createNoteModel.IsPinned;
                     result.IsDeleted = createNoteModel.IsDeleted;
+                    result.IsTrashed = createNoteModel.IsTrashed;
                     result.TimeNoteCreated = createNoteModel.TimeNoteCreated;
                     result.TimeNoteUpdated = createNoteModel.TimeNoteUpdated;
                     fundoo.SaveChanges();
@@ -197,6 +199,29 @@ namespace RepositoryLayer.Service
                     result.IsTrashed = false;
                     fundoo.SaveChanges();
                     return false;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public NEntity BackgroundColour(long userId, NoteIdModel noteIdModel, BackgroundColourModel backgroundColour)
+        {
+            try
+            {
+                var result = fundoo.NoteTable.Where(x => x.UserId == userId && x.NoteId == noteIdModel.noteId).FirstOrDefault();
+                if(result.BackgroundColour != null)
+                {
+                    result.BackgroundColour = backgroundColour.BackgroundColour;
+                    fundoo.NoteTable.Update(result);
+                    fundoo.SaveChanges();
+                    return result;
+                }
+                else
+                {
+                    return null;
                 }
             }
             catch (Exception)

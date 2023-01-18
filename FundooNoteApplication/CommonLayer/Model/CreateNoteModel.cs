@@ -16,6 +16,7 @@ namespace CommonLayer.Model
         public bool IsArchived { get; set; }
         public bool IsPinned { get; set; }
         public bool IsDeleted { get; set; }
+        public bool IsTrashed { get; set; }
         public DateTime TimeNoteCreated { get; set; }
         public DateTime TimeNoteUpdated { get; set; }
     }

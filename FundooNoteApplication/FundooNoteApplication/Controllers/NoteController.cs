@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FundooNoteApplication.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class NoteController : ControllerBase
@@ -18,7 +19,6 @@ namespace FundooNoteApplication.Controllers
             this.objINoteBL= objINoteBL;
         }
 
-        [Authorize]
         [HttpPost]
         [Route("CreateNote")]
         public IActionResult Create(CreateNoteModel createNote)
@@ -42,7 +42,6 @@ namespace FundooNoteApplication.Controllers
             }
         }
 
-        [Authorize]
         [HttpGet]
         [Route("RetrieveAllNotes")]
         public IActionResult RetrieveAllNotes()
@@ -66,7 +65,6 @@ namespace FundooNoteApplication.Controllers
             }
         }
 
-        [Authorize]
         [HttpGet]
         [Route("RetrieveNote")]
         public IActionResult RetrieveNote([FromQuery]NoteIdModel noteIdModel)
@@ -90,7 +88,6 @@ namespace FundooNoteApplication.Controllers
             }
         }
 
-        [Authorize]
         [HttpPut]
         [Route("UpdateNote")]
         public IActionResult UpdateNote([FromQuery]NoteIdModel noteIdModel, CreateNoteModel createNoteModel)
@@ -114,7 +111,6 @@ namespace FundooNoteApplication.Controllers
             }
         }
 
-        [Authorize]
         [HttpDelete]
         [Route("DeleteNote")]
         public IActionResult Delete(NoteIdModel noteIdModel)
@@ -138,7 +134,6 @@ namespace FundooNoteApplication.Controllers
             }
         }
 
-        [Authorize]
         [HttpPut]
         [Route("Archive-Unarchive")]
         public IActionResult Archive(NoteIdModel noteIdModel)
@@ -170,7 +165,6 @@ namespace FundooNoteApplication.Controllers
             }
         }
 
-        [Authorize]
         [HttpPut]
         [Route("Pin-UnPin")]
         public IActionResult Pin(NoteIdModel noteIdModel)
@@ -201,7 +195,6 @@ namespace FundooNoteApplication.Controllers
             }
         }
 
-        [Authorize]
         [HttpPut]
         [Route("Trash-Restore")]
         public IActionResult Trash(NoteIdModel noteIdModel)
@@ -224,6 +217,29 @@ namespace FundooNoteApplication.Controllers
                 else
                 {
                     return this.BadRequest(new { success = false, message = "Something went wrong" });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPut]
+        [Route("ChangeColour")]
+        public IActionResult ChangeBackgroundColour([FromQuery] NoteIdModel noteIdModel, BackgroundColourModel backgroundColour)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
+                var result = objINoteBL.BackgroundColour(userId, noteIdModel, backgroundColour);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, message = "Colour Updated", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Unable to Update Colour" });
                 }
             }
             catch (Exception)

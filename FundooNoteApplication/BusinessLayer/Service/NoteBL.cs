@@ -112,5 +112,17 @@ namespace BusinessLayer.Service
                 throw;
             }
         }
+
+        public NEntity BackgroundColour(long userId, NoteIdModel noteIdModel, BackgroundColourModel backgroundColour)
+        {
+            try
+            {
+                return noteINoteRL.BackgroundColour(userId, noteIdModel, backgroundColour);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
