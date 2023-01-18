@@ -247,5 +247,28 @@ namespace FundooNoteApplication.Controllers
                 throw;
             }
         }
+
+        [HttpPost]
+        [Route("UploadImage")]
+        public IActionResult ImageUpload([FromQuery]NoteIdModel noteIdModel, IFormFile image)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
+                var result = objINoteBL.ImageUpload(userId, noteIdModel, image);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, message = "Image Upload Successfull", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Something went wrong" });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
     }
 }
