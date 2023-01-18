@@ -45,5 +45,18 @@ namespace RepositoryLayer.Service
                 throw;
             }
         }
+
+        public IEnumerable<CollabEntity> RetrieveCollaborator(long noteId, long userId)
+        {
+            try
+            {
+                var result = fundoo.CollaboratorTable.Where(x => x.NoteId == noteId);
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
