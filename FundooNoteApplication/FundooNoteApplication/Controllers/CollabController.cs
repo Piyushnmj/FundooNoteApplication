@@ -64,5 +64,28 @@ namespace FundooNoteApplication.Controllers
                 throw;
             }
         }
+
+        [HttpDelete]
+        [Route("DeleteCollaborator")]
+        public IActionResult DeleteCollaborator(long noteId, CollaboratorIdModel collabId)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
+                var result = objICollabBL.DeleteCollaborator(noteId, collabId);
+                if (result == true)
+                {
+                    return this.Ok(new { success = true, message = "Collaborator Deleted Successfully"});
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Unable to delete" });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
     }
 }
