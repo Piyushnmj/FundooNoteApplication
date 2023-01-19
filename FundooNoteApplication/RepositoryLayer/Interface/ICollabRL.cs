@@ -12,5 +12,6 @@ namespace RepositoryLayer.Interface
         public CollabEntity AddCollaborator(long noteId, EmailModel email);
         public IQueryable<CollabEntity> RetrieveCollaborator(long noteId);
         public IQueryable<CollabEntity> RetrieveCollaboratorUsingCollabId(long collabId);
+        public bool DeleteCollaborator(CollaboratorIdModel collabId);
     }
 }

@@ -72,5 +72,18 @@ namespace RepositoryLayer.Service
                 throw;
             }
         }
+
+        public bool DeleteCollaborator(CollaboratorIdModel collabId)
+        {
+            try
+            {
+                var result = fundoo.CollaboratorTable.Where(x => x.CollabId == collabId);
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
