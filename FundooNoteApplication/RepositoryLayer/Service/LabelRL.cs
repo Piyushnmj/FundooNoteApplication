@@ -71,5 +71,27 @@ namespace RepositoryLayer.Service
                 throw;
             }
         }
+
+        public LabelEntity EditLabel(long labelId, LabelNameModel labelName)
+        {
+            try
+            {
+                var result = fundoo.LabelTable.Where(x => x.LabelId == labelId).FirstOrDefault();
+                if(result != null)
+                {
+                    result.LabelName = labelName.LabelName;
+                    fundoo.SaveChanges();
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

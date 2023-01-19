@@ -86,5 +86,27 @@ namespace FundooNoteApplication.Controllers
                 throw;
             }
         }
+
+        [HttpPut]
+        [Route("EditLabel")]
+        public IActionResult EditLabel(long labelId, LabelNameModel labelName)
+        {
+            try
+            {
+                var result = objILabelBL.EditLabel(labelId, labelName);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, message = "Label Name Changed", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Something went wrong" });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

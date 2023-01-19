@@ -12,5 +12,6 @@ namespace RepositoryLayer.Interface
         public LabelEntity AddLabel(long noteId, long userId, LabelNameModel labelName);
         public IQueryable<LabelEntity> RetrieveLabelUsingLabelId(long labelId);
         public IQueryable<LabelEntity> RetrieveLabelUsingNoteId(long noteId);
+        public LabelEntity EditLabel(long labelId, LabelNameModel labelName);
     }
 }
