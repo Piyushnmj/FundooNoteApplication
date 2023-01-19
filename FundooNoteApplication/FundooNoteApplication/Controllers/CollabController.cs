@@ -48,8 +48,29 @@ namespace FundooNoteApplication.Controllers
         {
             try
             {
-                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
-                var result = objICollabBL.RetrieveCollaborator(noteId, userId);
+                var result = objICollabBL.RetrieveCollaborator(noteId);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, message = "Email retrieved Successfully", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Unable to retrieve" });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet]
+        [Route("RetrieveCollaboratorId")]
+        public IActionResult RetrieveCollaboratorId(long collabId)
+        {
+            try
+            {
+                var result = objICollabBL.RetrieveCollaboratorUsingCollabId(collabId);
                 if (result != null)
                 {
                     return this.Ok(new { success = true, message = "Email retrieved Successfully", data = result });

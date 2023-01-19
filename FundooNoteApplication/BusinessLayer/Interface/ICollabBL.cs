@@ -10,7 +10,8 @@ namespace BusinessLayer.Interface
     public interface ICollabBL
     {
         public CollabEntity AddCollaborator(long noteId, EmailModel email);
-        public IEnumerable<CollabEntity> RetrieveCollaborator(long noteId, long userId);
+        public IQueryable<CollabEntity> RetrieveCollaborator(long noteId);
+        public IQueryable<CollabEntity> RetrieveCollaboratorUsingCollabId(long collabId);
         public bool DeleteCollaborator(CollaboratorIdModel collabId);
     }
 }

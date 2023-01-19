@@ -29,11 +29,23 @@ namespace BusinessLayer.Service
             }
         }
 
-        public IEnumerable<CollabEntity> RetrieveCollaborator(long noteId, long userId)
+        public IQueryable<CollabEntity> RetrieveCollaborator(long noteId)
         {
             try
             {
-                return collabICollabRL.RetrieveCollaborator(noteId, userId);
+                return collabICollabRL.RetrieveCollaborator(noteId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public IQueryable<CollabEntity> RetrieveCollaboratorUsingCollabId(long collabId)
+        {
+            try
+            {
+                return collabICollabRL.RetrieveCollaboratorUsingCollabId(collabId);
             }
             catch (Exception)
             {
