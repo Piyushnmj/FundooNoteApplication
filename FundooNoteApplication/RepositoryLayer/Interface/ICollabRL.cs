@@ -10,6 +10,7 @@ namespace RepositoryLayer.Interface
     public interface ICollabRL
     {
         public CollabEntity AddCollaborator(long noteId, EmailModel email);
-        public IEnumerable<CollabEntity> RetrieveCollaborator(long noteId, long userId);
+        public IQueryable<CollabEntity> RetrieveCollaborator(long noteId);
+        public IQueryable<CollabEntity> RetrieveCollaboratorUsingCollabId(long collabId);
     }
 }
