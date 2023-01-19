@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using RepositoryLayer.Interface;
+using RepositoryLayer.Migrations;
 
 namespace RepositoryLayer.Service
 {
@@ -46,7 +47,7 @@ namespace RepositoryLayer.Service
             }
         }
 
-        public IEnumerable<CollabEntity> RetrieveCollaborator(long noteId, long userId)
+        public IQueryable<CollabEntity> RetrieveCollaborator(long noteId)
         {
             try
             {
@@ -59,21 +60,12 @@ namespace RepositoryLayer.Service
             }
         }
 
-        public bool DeleteCollaborator(CollaboratorIdModel collabId)
+        public IQueryable<CollabEntity> RetrieveCollaboratorUsingCollabId(long collabId)
         {
             try
             {
-                var result = fundoo.CollaboratorTable.Where(x => x.CollabId == collabId.CollabId).FirstOrDefault();
-                if (result != null)
-                {
-                    fundoo.CollaboratorTable.Remove(result);
-                    fundoo.SaveChanges();
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                var result = fundoo.CollaboratorTable.Where(x => x.CollabId == collabId);
+                return result;
             }
             catch (Exception)
             {
