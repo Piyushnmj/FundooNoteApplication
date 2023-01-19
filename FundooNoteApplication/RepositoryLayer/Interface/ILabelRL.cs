@@ -13,5 +13,6 @@ namespace RepositoryLayer.Interface
         public IQueryable<LabelEntity> RetrieveLabelUsingLabelId(long labelId);
         public IQueryable<LabelEntity> RetrieveLabelUsingNoteId(long noteId);
         public LabelEntity EditLabel(long labelId, LabelNameModel labelName);
+        public bool DeleteLabel(long labelId);
     }
 }
