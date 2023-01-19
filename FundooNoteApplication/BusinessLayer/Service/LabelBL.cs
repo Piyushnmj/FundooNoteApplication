@@ -4,6 +4,7 @@ using RepositoryLayer.Entities;
 using RepositoryLayer.Interface;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BusinessLayer.Service
@@ -22,6 +23,30 @@ namespace BusinessLayer.Service
             try
             {
                 return labelILabelRL.AddLabel(noteId, userId, labelName);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public IQueryable<LabelEntity> RetrieveLabelUsingLabelId(long labelId)
+        {
+            try
+            {
+                return labelILabelRL.RetrieveLabelUsingLabelId(labelId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public IQueryable<LabelEntity> RetrieveLabelUsingNoteId(long noteId)
+        {
+            try
+            {
+                return labelILabelRL.RetrieveLabelUsingNoteId(noteId);
             }
             catch (Exception)
             {

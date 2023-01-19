@@ -42,5 +42,49 @@ namespace FundooNoteApplication.Controllers
                 throw;
             }
         }
+
+        [HttpGet]
+        [Route("RetrieveLabel-UsingLabelId")]
+        public IActionResult RetrieveLabelUsingLabelId(long labelId)
+        {
+            try
+            {
+                var result = objILabelBL.RetrieveLabelUsingLabelId(labelId);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, message = "Retrieve Successfull", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Something went wrong" });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet]
+        [Route("RetrieveLabel-UsingNoteId")]
+        public IActionResult RetrieveLabelUsingNoteId(long noteId)
+        {
+            try
+            {
+                var result = objILabelBL.RetrieveLabelUsingLabelId(noteId);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, message = "Retrieve Successfull", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Something went wrong" });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

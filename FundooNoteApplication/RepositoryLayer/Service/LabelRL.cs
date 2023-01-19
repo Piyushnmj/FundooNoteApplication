@@ -45,5 +45,31 @@ namespace RepositoryLayer.Service
                 throw;
             }
         }
+
+        public IQueryable<LabelEntity> RetrieveLabelUsingLabelId(long labelId)
+        {
+            try
+            {
+                var result = fundoo.LabelTable.Where(x => x.LabelId == labelId);
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public IQueryable<LabelEntity> RetrieveLabelUsingNoteId(long noteId)
+        {
+            try
+            {
+                var result = fundoo.LabelTable.Where(x => x.NoteId == noteId);
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
