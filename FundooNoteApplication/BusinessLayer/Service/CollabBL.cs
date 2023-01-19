@@ -41,11 +41,11 @@ namespace BusinessLayer.Service
             }
         }
 
-        public bool DeleteCollaborator(long noteId, CollaboratorIdModel collabId)
+        public bool DeleteCollaborator(CollaboratorIdModel collabId)
         {
             try
             {
-                return collabICollabRL.DeleteCollaborator(noteId, collabId);
+                return collabICollabRL.DeleteCollaborator(collabId);
             }
             catch (Exception)
             {

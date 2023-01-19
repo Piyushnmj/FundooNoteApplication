@@ -59,7 +59,7 @@ namespace RepositoryLayer.Service
             }
         }
 
-        public bool DeleteCollaborator(long noteId, CollaboratorIdModel collabId)
+        public bool DeleteCollaborator(CollaboratorIdModel collabId)
         {
             try
             {

@@ -67,12 +67,12 @@ namespace FundooNoteApplication.Controllers
 
         [HttpDelete]
         [Route("DeleteCollaborator")]
-        public IActionResult DeleteCollaborator(long noteId, CollaboratorIdModel collabId)
+        public IActionResult DeleteCollaborator(CollaboratorIdModel collabId)
         {
             try
             {
                 long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
-                var result = objICollabBL.DeleteCollaborator(noteId, collabId);
+                var result = objICollabBL.DeleteCollaborator(collabId);
                 if (result == true)
                 {
                     return this.Ok(new { success = true, message = "Collaborator Deleted Successfully"});
