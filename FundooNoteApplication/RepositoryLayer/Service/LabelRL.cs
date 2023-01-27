@@ -18,6 +18,13 @@ namespace RepositoryLayer.Service
             this.fundoo = fundoo;
         }
 
+        /// <summary>
+        /// Adds the label.
+        /// </summary>
+        /// <param name="noteId">The note identifier.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="labelName">Name of the label.</param>
+        /// <returns></returns>
         public LabelEntity AddLabel(long noteId, long userId, LabelNameModel labelName)
         {
             try
@@ -46,6 +53,11 @@ namespace RepositoryLayer.Service
             }
         }
 
+        /// <summary>
+        /// Retrieves the label using label Id.
+        /// </summary>
+        /// <param name="labelId">The label identifier.</param>
+        /// <returns></returns>
         public IQueryable<LabelEntity> RetrieveLabelUsingLabelId(long labelId)
         {
             try
@@ -59,6 +71,11 @@ namespace RepositoryLayer.Service
             }
         }
 
+        /// <summary>
+        /// Retrieves the label using note Id.
+        /// </summary>
+        /// <param name="noteId">The note identifier.</param>
+        /// <returns></returns>
         public IQueryable<LabelEntity> RetrieveLabelUsingNoteId(long noteId)
         {
             try
@@ -72,6 +89,12 @@ namespace RepositoryLayer.Service
             }
         }
 
+        /// <summary>
+        /// Edits the label.
+        /// </summary>
+        /// <param name="labelId">The label identifier.</param>
+        /// <param name="labelName">Name of the label.</param>
+        /// <returns></returns>
         public LabelEntity EditLabel(long labelId, LabelNameModel labelName)
         {
             try
@@ -94,6 +117,11 @@ namespace RepositoryLayer.Service
             }
         }
 
+        /// <summary>
+        /// Deletes the label.
+        /// </summary>
+        /// <param name="labelId">The label identifier.</param>
+        /// <returns></returns>
         public bool DeleteLabel(long labelId)
         {
             try

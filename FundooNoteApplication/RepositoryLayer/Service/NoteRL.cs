@@ -23,6 +23,12 @@ namespace RepositoryLayer.Service
             this.configuration = configuration;
         }
 
+        /// <summary>
+        /// Creates the note.
+        /// </summary>
+        /// <param name="createNote">The create note.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns></returns>
         public NEntity CreateNote(CreateNoteModel createNote, long userId)
         {
             try
@@ -60,6 +66,11 @@ namespace RepositoryLayer.Service
             }
         }
 
+        /// <summary>
+        /// Retrieves all notes.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns></returns>
         public IQueryable<NEntity> RetrieveAllNotes(long userId)
         {
             try
@@ -73,6 +84,12 @@ namespace RepositoryLayer.Service
             }
         }
 
+        /// <summary>
+        /// Retrieves a single note.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="noteIdModel">The note identifier model.</param>
+        /// <returns></returns>
         public IQueryable<NEntity> RetrieveNote(long userId, NoteIdModel noteIdModel)
         {
             try
@@ -86,6 +103,13 @@ namespace RepositoryLayer.Service
             }
         }
 
+        /// <summary>
+        /// Updates the note.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="noteIdModel">The note identifier model.</param>
+        /// <param name="createNoteModel">The create note model.</param>
+        /// <returns></returns>
         public NEntity UpdateNote(long userId, NoteIdModel noteIdModel, CreateNoteModel createNoteModel)
         {
             try
@@ -118,6 +142,12 @@ namespace RepositoryLayer.Service
             }
         }
 
+        /// <summary>
+        /// Permanently deletes the note.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="noteIdModel">The note identifier model.</param>
+        /// <returns></returns>
         public bool DeleteNote(long userId, NoteIdModel noteIdModel)
         {
             try
@@ -140,6 +170,12 @@ namespace RepositoryLayer.Service
             }
         }
 
+        /// <summary>
+        /// Archives and unarchives the note.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="noteIdModel">The note identifier model.</param>
+        /// <returns></returns>
         public bool ArchiveNote(long userId, NoteIdModel noteIdModel)
         {
             try
@@ -164,6 +200,12 @@ namespace RepositoryLayer.Service
             }
         }
 
+        /// <summary>
+        /// Pins and unpins the note.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="noteIdModel">The note identifier model.</param>
+        /// <returns></returns>
         public bool PinNote(long userId, NoteIdModel noteIdModel)
         {
             try
@@ -188,6 +230,12 @@ namespace RepositoryLayer.Service
             }
         }
 
+        /// <summary>
+        /// Trashes and restores the note.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="noteIdModel">The note identifier model.</param>
+        /// <returns></returns>
         public bool TrashNote(long userId, NoteIdModel noteIdModel)
         {
             try
@@ -212,6 +260,13 @@ namespace RepositoryLayer.Service
             }
         }
 
+        /// <summary>
+        /// Change background colour.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="noteIdModel">The note identifier model.</param>
+        /// <param name="backgroundColour">The background colour.</param>
+        /// <returns></returns>
         public NEntity BackgroundColour(long userId, NoteIdModel noteIdModel, BackgroundColourModel backgroundColour)
         {
             try
@@ -235,6 +290,13 @@ namespace RepositoryLayer.Service
             }
         }
 
+        /// <summary>
+        /// Upload an image in the note.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="noteIdModel">The note identifier model.</param>
+        /// <param name="image">The image.</param>
+        /// <returns></returns>
         public string ImageUpload(long userId, NoteIdModel noteIdModel, IFormFile image)
         {
             try

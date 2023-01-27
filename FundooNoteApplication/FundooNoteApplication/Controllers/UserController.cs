@@ -26,7 +26,6 @@ namespace FundooNoteApplication.Controllers
         }
 
         [HttpPost]
-
         [Route("UserRegistration")]
         public IActionResult Register(UserRegistration userRegistration)
         {
@@ -49,7 +48,6 @@ namespace FundooNoteApplication.Controllers
         }
 
         [HttpPost]
-
         [Route("UserLogin")]
         public IActionResult Login(UserLogin userLogin)
         {
@@ -72,7 +70,6 @@ namespace FundooNoteApplication.Controllers
         }
 
         [HttpPost]
-
         [Route("ForgotPassword")]
         public IActionResult ForgotPassword(string email)
         {
@@ -96,7 +93,6 @@ namespace FundooNoteApplication.Controllers
 
         [Authorize]
         [HttpPut]
-
         [Route("ResetPassword")]
         public IActionResult PasswordReset(ResetPasswordModel resetPasswordModel)
         {

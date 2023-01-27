@@ -17,6 +17,7 @@ namespace RepositoryLayer.Service
     {
         FundooContext fundoo;
         private readonly string secret;
+        public static string key = "piyushnmj@dotnet";
 
         public UserRL(FundooContext fundoo, IConfiguration config)
         {
@@ -24,6 +25,11 @@ namespace RepositoryLayer.Service
             secret = config.GetSection("JwtConfig").GetSection("secret").Value;
         }
 
+        /// <summary>
+        /// Registers the user.
+        /// </summary>
+        /// <param name="userRegistration">The user registration.</param>
+        /// <returns></returns>
         public UEntity RegisterUser(UserRegistration userRegistration)
         {
             try
@@ -32,7 +38,7 @@ namespace RepositoryLayer.Service
                 objUEntity.FirstName = userRegistration.FirstName;
                 objUEntity.LastName = userRegistration.LastName;
                 objUEntity.Email = userRegistration.Email;
-                objUEntity.Password= userRegistration.Password;
+                objUEntity.Password = EncryptPassword(userRegistration.Password);
                 fundoo.UserTable.Add(objUEntity);
                 int result = fundoo.SaveChanges();
                 if(result > 0)
@@ -50,12 +56,18 @@ namespace RepositoryLayer.Service
             }
         }
 
+        /// <summary>
+        /// Logins the user.
+        /// </summary>
+        /// <param name="userLogin">The user login.</param>
+        /// <returns></returns>
         public string LoginUser(UserLogin userLogin)
         {
             try
             {
-                var result = fundoo.UserTable.Where(x => x.Email == userLogin.Email && x.Password == userLogin.Password).FirstOrDefault();
-                if(result != null)
+                var result = fundoo.UserTable.Where(x => x.Email == userLogin.Email).FirstOrDefault();
+                var decryptPassword = DecryptPassword(result.Password);
+                if(result != null && decryptPassword == userLogin.Password)
                 {
                     var token = GenerateSecurityToken(result.Email, result.UserId);
                     return token;
@@ -71,6 +83,12 @@ namespace RepositoryLayer.Service
             }
         }
 
+        /// <summary>
+        /// Generates the security token.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns></returns>
         public string GenerateSecurityToken(string email, long userId)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -92,6 +110,11 @@ namespace RepositoryLayer.Service
 
         }
 
+        /// <summary>
+        /// Sends a token to reset password
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
         public string ForgotPassword(string email)
         {
             try
@@ -115,6 +138,12 @@ namespace RepositoryLayer.Service
             }
         }
 
+        /// <summary>
+        /// Resets the password.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <param name="resetPasswordModel">The reset password model.</param>
+        /// <returns></returns>
         public bool ResetPassword(string email, ResetPasswordModel resetPasswordModel)
         {
             try
@@ -135,6 +164,39 @@ namespace RepositoryLayer.Service
             {
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Encrypts the password.
+        /// </summary>
+        /// <param name="password">The password.</param>
+        /// <returns></returns>
+        public static string EncryptPassword(string password)
+        {
+            if (string.IsNullOrEmpty(password))
+            {
+                return "";
+            }
+            password += key;
+            var passwordBytes = Encoding.UTF8.GetBytes(password);
+            return Convert.ToBase64String(passwordBytes);
+        }
+
+        /// <summary>
+        /// Decrypts the password.
+        /// </summary>
+        /// <param name="encodedPassword">The encoded password.</param>
+        /// <returns></returns>
+        public static string DecryptPassword(string encodedPassword)
+        {
+            if (string.IsNullOrEmpty(encodedPassword))
+            {
+                return "";
+            }
+            var encodedPasswordBytes = Convert.FromBase64String(encodedPassword);
+            var result = Encoding.UTF8.GetString(encodedPasswordBytes);
+            result = result.Substring(0, result.Length - key.Length);
+            return result;
         }
     }
 }

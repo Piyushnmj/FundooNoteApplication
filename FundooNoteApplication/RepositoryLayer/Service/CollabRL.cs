@@ -19,6 +19,12 @@ namespace RepositoryLayer.Service
             this.fundoo = fundoo;
         }
 
+        /// <summary>
+        /// Adds the collaborator.
+        /// </summary>
+        /// <param name="noteId">The note identifier.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
         public CollabEntity AddCollaborator(long noteId, EmailModel email)
         {
             try
@@ -47,6 +53,11 @@ namespace RepositoryLayer.Service
             }
         }
 
+        /// <summary>
+        /// Retrieves the collaborator.
+        /// </summary>
+        /// <param name="noteId">The note identifier.</param>
+        /// <returns></returns>
         public IQueryable<CollabEntity> RetrieveCollaborator(long noteId)
         {
             try
@@ -60,6 +71,11 @@ namespace RepositoryLayer.Service
             }
         }
 
+        /// <summary>
+        /// Retrieves the collaborator using collab Id.
+        /// </summary>
+        /// <param name="collabId">The collab identifier.</param>
+        /// <returns></returns>
         public IQueryable<CollabEntity> RetrieveCollaboratorUsingCollabId(long collabId)
         {
             try
@@ -73,6 +89,11 @@ namespace RepositoryLayer.Service
             }
         }
 
+        /// <summary>
+        /// Deletes the collaborator.
+        /// </summary>
+        /// <param name="collabId">The collab identifier.</param>
+        /// <returns></returns>
         public bool DeleteCollaborator(CollaboratorIdModel collabId)
         {
             try

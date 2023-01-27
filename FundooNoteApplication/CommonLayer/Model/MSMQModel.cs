@@ -30,7 +30,7 @@ namespace CommonLayer.Model
             var message = objMessageQueue.EndReceive(e.AsyncResult);
             string token = message.Body.ToString();
             string subject = "Testing the api and sending the mail";
-            string body = token;
+            string body = $"Fundoo Notes Reset Password: <a href=http://localhost:4200/resetPassword/{token}> Click Here</a>";
             var smtp = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
