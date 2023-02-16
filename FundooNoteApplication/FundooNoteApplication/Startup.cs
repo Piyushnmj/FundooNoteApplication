@@ -88,15 +88,25 @@ namespace FundooNoteApplication
                 options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
                 {
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                ClockSkew = TimeSpan.Zero,// It forces tokens to expire exactly at token expiration time instead of 5 minutes later
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret))
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero,// It forces tokens to expire exactly at token expiration time instead of 5 minutes later
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret))
                 };
             });
             services.AddStackExchangeRedisCache(options =>
             {
                 options.Configuration = "localhost:6379";
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    name: "AllowOrigin",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                    });
             });
         }
 
@@ -107,7 +117,7 @@ namespace FundooNoteApplication
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors("AllowOrigin");
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
@@ -121,6 +131,7 @@ namespace FundooNoteApplication
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Showing API V1");
             });
+            
         }
     }
 }
