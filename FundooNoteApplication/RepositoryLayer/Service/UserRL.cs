@@ -151,7 +151,7 @@ namespace RepositoryLayer.Service
                 if(resetPasswordModel.new_Password == resetPasswordModel.confirm_Password)
                 {
                     var result = fundoo.UserTable.Where(x => x.Email == email).FirstOrDefault();
-                    result.Password = resetPasswordModel.new_Password;
+                    result.Password = EncryptPassword(resetPasswordModel.new_Password);
                     fundoo.SaveChanges();
                     return true;
                 }

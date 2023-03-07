@@ -66,11 +66,11 @@ namespace BusinessLayer.Service
             }
         }
 
-        public bool DeleteNote(long userId, NoteIdModel noteIdModel)
+        public bool DeleteNote(long userId, long noteId)
         {
             try
             {
-                return noteINoteRL.DeleteNote(userId, noteIdModel);
+                return noteINoteRL.DeleteNote(userId, noteId);
             }
             catch (Exception)
             {
@@ -114,11 +114,11 @@ namespace BusinessLayer.Service
             }
         }
 
-        public NEntity BackgroundColour(long userId, NoteIdModel noteIdModel, BackgroundColourModel backgroundColour)
+        public NEntity BackgroundColour(long userId, long noteId, string BackgroundColour)
         {
             try
             {
-                return noteINoteRL.BackgroundColour(userId, noteIdModel, backgroundColour);
+                return noteINoteRL.BackgroundColour(userId, noteId, BackgroundColour);
             }
             catch (Exception)
             {

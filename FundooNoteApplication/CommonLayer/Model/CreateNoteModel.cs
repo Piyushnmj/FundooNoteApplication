@@ -13,10 +13,10 @@ namespace CommonLayer.Model
         public DateTime Reminder { get; set; }
         public string BackgroundColour { get; set; }
         public string ImagePath { get; set; }
-        public bool IsArchived { get; set; }
-        public bool IsPinned { get; set; }
-        public bool IsDeleted { get; set; }
-        public bool IsTrashed { get; set; }
+        //public bool IsArchived { get; set; }
+        //public bool IsPinned { get; set; }
+        //public bool IsDeleted { get; set; }
+        //public bool IsTrashed { get; set; }
         public DateTime TimeNoteCreated { get; set; }
         public DateTime TimeNoteUpdated { get; set; }
     }

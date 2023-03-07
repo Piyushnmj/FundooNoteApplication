@@ -119,6 +119,24 @@ namespace RepositoryLayer.Migrations
                     b.ToTable("NoteTable");
                 });
 
+            modelBuilder.Entity("RepositoryLayer.Entities.ReviewEntity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ReviewComment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ReviewTable");
+                });
+
             modelBuilder.Entity("RepositoryLayer.Entities.UEntity", b =>
                 {
                     b.Property<long>("UserId")

@@ -126,12 +126,12 @@ namespace FundooNoteApplication.Controllers
 
         [HttpDelete]
         [Route("DeleteNote")]
-        public IActionResult Delete(NoteIdModel noteIdModel)
+        public IActionResult Delete(long noteId)
         {
             try
             {
                 long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
-                var result = objINoteBL.DeleteNote(userId, noteIdModel);
+                var result = objINoteBL.DeleteNote(userId, noteId);
                 if (result == true)
                 {
                     return this.Ok(new { success = true, message = "Note Deleted" });
@@ -170,7 +170,6 @@ namespace FundooNoteApplication.Controllers
                 {
                     return this.BadRequest(new { success = false, message = "Something went wrong" });
                 }
-                
             }
             catch (Exception)
             {
@@ -240,12 +239,12 @@ namespace FundooNoteApplication.Controllers
 
         [HttpPut]
         [Route("ChangeColour")]
-        public IActionResult ChangeBackgroundColour([FromQuery] NoteIdModel noteIdModel, BackgroundColourModel backgroundColour)
+        public IActionResult ChangeBackgroundColour(long noteId, string BackgroundColour)
         {
             try
             {
                 long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
-                var result = objINoteBL.BackgroundColour(userId, noteIdModel, backgroundColour);
+                var result = objINoteBL.BackgroundColour(userId, noteId, BackgroundColour);
                 if (result != null)
                 {
                     return this.Ok(new { success = true, message = "Colour Updated", data = result });

@@ -41,10 +41,10 @@ namespace RepositoryLayer.Service
                 objNEntity.Reminder = createNote.Reminder;
                 objNEntity.BackgroundColour = createNote.BackgroundColour;
                 objNEntity.ImagePath = createNote.ImagePath;
-                objNEntity.IsArchived = createNote.IsArchived;
-                objNEntity.IsPinned = createNote.IsPinned;
-                objNEntity.IsDeleted = createNote.IsDeleted;
-                objNEntity.IsTrashed = createNote.IsTrashed;
+                //objNEntity.IsArchived = createNote.IsArchived;
+                //objNEntity.IsPinned = createNote.IsPinned;
+                //objNEntity.IsDeleted = createNote.IsDeleted;
+                //objNEntity.IsTrashed = createNote.IsTrashed;
                 objNEntity.TimeNoteCreated = createNote.TimeNoteCreated;
                 objNEntity.TimeNoteUpdated = createNote.TimeNoteUpdated;
 
@@ -122,10 +122,10 @@ namespace RepositoryLayer.Service
                     result.Reminder = createNoteModel.Reminder;
                     result.BackgroundColour = createNoteModel.BackgroundColour;
                     result.ImagePath = createNoteModel.ImagePath;
-                    result.IsArchived = createNoteModel.IsArchived;
-                    result.IsPinned = createNoteModel.IsPinned;
-                    result.IsDeleted = createNoteModel.IsDeleted;
-                    result.IsTrashed = createNoteModel.IsTrashed;
+                    //result.IsArchived = createNoteModel.IsArchived;
+                    //result.IsPinned = createNoteModel.IsPinned;
+                    //result.IsDeleted = createNoteModel.IsDeleted;
+                    //result.IsTrashed = createNoteModel.IsTrashed;
                     result.TimeNoteCreated = createNoteModel.TimeNoteCreated;
                     result.TimeNoteUpdated = createNoteModel.TimeNoteUpdated;
                     fundoo.SaveChanges();
@@ -148,11 +148,11 @@ namespace RepositoryLayer.Service
         /// <param name="userId">The user identifier.</param>
         /// <param name="noteIdModel">The note identifier model.</param>
         /// <returns></returns>
-        public bool DeleteNote(long userId, NoteIdModel noteIdModel)
+        public bool DeleteNote(long userId, long noteId)
         {
             try
             {
-                var result = fundoo.NoteTable.Where(x => x.UserId == userId && x.NoteId == noteIdModel.noteId).FirstOrDefault();
+                var result = fundoo.NoteTable.Where(x => x.UserId == userId && x.NoteId == noteId).FirstOrDefault();
                 if (result != null)
                 {
                     fundoo.NoteTable.Remove(result);
@@ -241,7 +241,7 @@ namespace RepositoryLayer.Service
             try
             {
                 var result = fundoo.NoteTable.Where(x => x.UserId == userId && x.NoteId == noteIdModel.noteId).FirstOrDefault();
-                if (!result.IsTrashed == true)
+                if (result.IsTrashed == false)
                 {
                     result.IsTrashed = true;
                     fundoo.SaveChanges();
@@ -267,14 +267,14 @@ namespace RepositoryLayer.Service
         /// <param name="noteIdModel">The note identifier model.</param>
         /// <param name="backgroundColour">The background colour.</param>
         /// <returns></returns>
-        public NEntity BackgroundColour(long userId, NoteIdModel noteIdModel, BackgroundColourModel backgroundColour)
+        public NEntity BackgroundColour(long userId, long noteId, string BackgroundColour)
         {
             try
             {
-                var result = fundoo.NoteTable.Where(x => x.UserId == userId && x.NoteId == noteIdModel.noteId).FirstOrDefault();
-                if(result.BackgroundColour != null)
+                var result = fundoo.NoteTable.Where(x => x.UserId == userId && x.NoteId == noteId).FirstOrDefault();
+                if(result != null)
                 {
-                    result.BackgroundColour = backgroundColour.BackgroundColour;
+                    result.BackgroundColour = BackgroundColour;
                     fundoo.NoteTable.Update(result);
                     fundoo.SaveChanges();
                     return result;
